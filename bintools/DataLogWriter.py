@@ -6,13 +6,16 @@ class DataLogWriter:
         assert isinstance(filename, str)
         assert isinstance(fields, list)
         
+        self.sampleCounter = 0
+        self.collecting = False
+        
         self.file = open(filename, 'xb')
         self.fields = fields
         self.__writeHeader()
         
     def __writeHeader(self):
         magic = bytes('NC🚀2019', 'utf-8')
-        fieldsLength = struct.pack('B', len(self.fields))
+        fieldsLength = struct.pack('H', len(self.fields))
         self.file.write(magic)
         self.file.write(fieldsLength)
         
@@ -32,3 +35,19 @@ class DataLogWriter:
             self.file.write(encodedName)
             
         self.file.flush()
+
+    def beginSample(self):
+        if not self.collecting:
+            self.sampleCounter++
+            self.collecting = True
+            self.fieldCounter = 0
+            self.currentSample = []
+
+    def log(self, data):
+        if self.collecting:
+            # Log data here
+            self.fieldCounter++
+            
+    def endSample(self):
+        if self.collecting:
+            self.collecting = False
