@@ -12,3 +12,9 @@ for i in range(0, 5000):
 writer.close()
 
 reader = DataLogReader('/tmp/test-write.bin')
+
+while True:
+    sample = reader.readNext()
+    print(sample)
+    if sample == None:
+        break
