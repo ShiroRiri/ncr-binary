@@ -55,8 +55,8 @@ class DataLogReader:
             if (recordedId != i):
                 raise Exception('Field captures out of order. File may be corrupted :(')
 
-            currentBuffer += self.file.read(4 + type.size())
-            capture = struct.unpack_from('<f' + type.format(), currentBuffer, 2)
+            currentBuffer += self.file.read(8 + type.size())
+            capture = struct.unpack_from('<d' + type.format(), currentBuffer, 2)
             time = capture[0]
             data = capture[1]
 

@@ -55,7 +55,7 @@ class DataLogWriter:
             data = sample['data']
             time = sample['time']
 
-            samplePacket += struct.pack('<Hf' + type.format(), i, time, data)
+            samplePacket += struct.pack('<Hd' + type.format(), i, time, data)
 
         # CRC32
         samplePacket += struct.pack('<I', Crc32.calc(samplePacket))
