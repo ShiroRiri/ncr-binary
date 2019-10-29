@@ -14,7 +14,7 @@ class DataLogReader:
         fileMagic = self.file.read(len(magic))
 
         if (magic != fileMagic):
-            raise Exception('File magic invalid. File may be corrupted :()')
+            raise Exception('File magic invalid. File may be corrupted :(')
 
         fieldsLength = struct.unpack('<H', self.file.read(2))[0]
         self.fields = []
